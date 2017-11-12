@@ -33,7 +33,7 @@ $(document).ready(function () {
   var basicOption = {
     title: {
       display: true,
-      text: 'Temperature & Humidity Real-time Data',
+      text: 'Temperatur & Luftfuktighet (K16)',
       fontSize: 36
     },
     scales: {
@@ -41,7 +41,7 @@ $(document).ready(function () {
         id: 'Temperature',
         type: 'linear',
         scaleLabel: {
-          labelString: 'Temperature(C)',
+          labelString: 'Temperatur (C)',
           display: true
         },
         position: 'left',
@@ -49,7 +49,7 @@ $(document).ready(function () {
           id: 'Humidity',
           type: 'linear',
           scaleLabel: {
-            labelString: 'Humidity(%)',
+            labelString: 'Luftfuktighet (%)',
             display: true
           },
           position: 'right'
@@ -66,7 +66,6 @@ $(document).ready(function () {
     options: basicOption
   });
 
-  //var ws = new WebSocket('ws://localhost:3000'); 
   var ws = new WebSocket('ws://' + location.host);
   ws.onopen = function () {
     console.log('Successfully connect WebSocket');
