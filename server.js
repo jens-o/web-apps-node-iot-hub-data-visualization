@@ -30,7 +30,6 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-//var iotHubReader = new iotHubClient('HostName=k16-hub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=I7Tiw22agYqeCM7RdmNRnby2Wy5E6SCoBf15G/ZdzZI=', 'k16cg');
 var iotHubReader = new iotHubClient(config.connectionString, config.consumerGroup);
 iotHubReader.startReadMessage(function (obj, date) {
   try {
