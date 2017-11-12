@@ -66,7 +66,8 @@ $(document).ready(function () {
     options: basicOption
   });
 
-  var ws = new WebSocket('wss://' + location.host);
+  //var ws = new WebSocket('ws://localhost:3000'); 
+  var ws = new WebSocket('ws://' + location.host);
   ws.onopen = function () {
     console.log('Successfully connect WebSocket');
   }
@@ -74,11 +75,11 @@ $(document).ready(function () {
     console.log('receive message' + message.data);
     try {
       var obj = JSON.parse(message.data);
-      if(!obj.time || !obj.temperature) {
+      if(!obj.time || !obj.Temperature) {
         return;
       }
       timeData.push(obj.time);
-      temperatureData.push(obj.temperature);
+      temperatureData.push(obj.Temperature);
       // only keep no more than 50 points in the line chart
       const maxLen = 50;
       var len = timeData.length;
@@ -87,8 +88,8 @@ $(document).ready(function () {
         temperatureData.shift();
       }
 
-      if (obj.humidity) {
-        humidityData.push(obj.humidity);
+      if (obj.Humidity) {
+        humidityData.push(obj.Humidity);
       }
       if (humidityData.length > maxLen) {
         humidityData.shift();
