@@ -29,7 +29,7 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-var iotHubReader = new iotHubClient(process.env['IOTHUB_CONNECTIONSTRING'], process.env['IOTHUB_CONSUMERGROUP');
+var iotHubReader = new iotHubClient(process.env['IOTHUB_CONNECTIONSTRING'], process.env['IOTHUB_CONSUMERGROUP']);
 iotHubReader.startReadMessage(function (obj, date) {
   try {
     console.log(date);
