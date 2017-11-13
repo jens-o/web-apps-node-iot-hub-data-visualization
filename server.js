@@ -30,7 +30,10 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-var iotHubReader = new iotHubClient(config.connectionString, config.consumerGroup);
+const connectionString = config.connectionString || process.env['IOTHUB_CONNECTIONSTRING'];
+const consumerGroup = config.consumerGroup || process.env['IOTHUB_CONSUMERGROUP'];
+
+var iotHubReader = new iotHubClient(connectionString, consumerGroup);
 iotHubReader.startReadMessage(function (obj, date) {
   try {
     console.log(date);
