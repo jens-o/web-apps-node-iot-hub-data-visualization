@@ -4,7 +4,6 @@ const WebSocket = require('ws');
 const moment = require('moment');
 const path = require('path');
 const iotHubClient = require('./IoTHub/iot-hub.js');
-const config = require('./config.js');
 
 const app = express();
 
@@ -30,10 +29,7 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-const connectionString = config.connectionString || process.env['IOTHUB_CONNECTIONSTRING'];
-const consumerGroup = config.consumerGroup || process.env['IOTHUB_CONSUMERGROUP'];
-
-var iotHubReader = new iotHubClient(connectionString, consumerGroup);
+var iotHubReader = new iotHubClient(process.env['IOTHUB_CONNECTIONSTRING'], process.env['IOTHUB_CONSUMERGROUP');
 iotHubReader.startReadMessage(function (obj, date) {
   try {
     console.log(date);
