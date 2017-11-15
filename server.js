@@ -29,6 +29,24 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
+function heartbeat() {
+  this.isAlive = true;
+}
+
+wss.on('connection', function connection(ws) {
+  ws.isAlive = true;
+  ws.on('pong', heartbeat);
+});
+
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) return ws.terminate();
+
+    ws.isAlive = false;
+    ws.ping('', false, true);
+  });
+}, 30000);
+
 var iotHubReader = new iotHubClient(process.env['IOTHUB_CONNECTIONSTRING'], process.env['IOTHUB_CONSUMERGROUP']);
 iotHubReader.startReadMessage(function (obj, date) {
   try {
