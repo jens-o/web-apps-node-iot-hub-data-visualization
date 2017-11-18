@@ -7,7 +7,7 @@ $(document).ready(function () {
     datasets: [
       {
         fill: false,
-        label: 'Temperature',
+        label: 'Temperatur',
         yAxisID: 'Temperature',
         borderColor: "rgba(255, 204, 0, 1)",
         pointBoarderColor: "rgba(255, 204, 0, 1)",
@@ -18,7 +18,7 @@ $(document).ready(function () {
       },
       {
         fill: false,
-        label: 'Humidity',
+        label: 'Luftfuktighet',
         yAxisID: 'Humidity',
         borderColor: "rgba(24, 120, 240, 1)",
         pointBoarderColor: "rgba(24, 120, 240, 1)",
@@ -74,11 +74,11 @@ $(document).ready(function () {
     console.log('receive message' + message.data);
     try {
       var obj = JSON.parse(message.data);
-      if(!obj.time || !obj.Temperature) {
+      if(!obj.time || !obj.temperature) {
         return;
       }
       timeData.push(obj.time);
-      temperatureData.push(obj.Temperature);
+      temperatureData.push(obj.temperature);
       // only keep no more than 50 points in the line chart
       const maxLen = 50;
       var len = timeData.length;
@@ -87,8 +87,8 @@ $(document).ready(function () {
         temperatureData.shift();
       }
 
-      if (obj.Humidity) {
-        humidityData.push(obj.Humidity);
+      if (obj.humidity) {
+        humidityData.push(obj.humidity);
       }
       if (humidityData.length > maxLen) {
         humidityData.shift();
