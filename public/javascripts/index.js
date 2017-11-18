@@ -2,6 +2,7 @@ $(document).ready(function () {
   var timeData = [],
     temperatureData = [],
     humidityData = [];
+  
   var data = {
     labels: timeData,
     datasets: [
