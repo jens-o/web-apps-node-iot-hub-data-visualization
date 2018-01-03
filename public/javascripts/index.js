@@ -75,11 +75,11 @@ $(document).ready(function () {
     console.log('receive message' + message.data);
     try {
       var obj = JSON.parse(message.data);
-      if(!obj.time || !obj.temperature) {
+      if(!obj.time || !obj.temperature2) {
         return;
       }
       timeData.push(obj.time);
-      temperatureData.push(obj.temperature);
+      temperatureData.push(obj.temperature2);
       // only keep no more than 50 points in the line chart
       const maxLen = 50;
       var len = timeData.length;
@@ -88,8 +88,8 @@ $(document).ready(function () {
         temperatureData.shift();
       }
 
-      if (obj.humidity) {
-        humidityData.push(obj.humidity);
+      if (obj.humidity1) {
+        humidityData.push(obj.humidity1);
       }
       if (humidityData.length > maxLen) {
         humidityData.shift();
