@@ -2,6 +2,7 @@ $(document).ready(function () {
   var timeData = [],
     temperatureData = [],
     humidityData = [];
+    pressureData = [];
   
   var data = {
     labels: timeData,
@@ -27,6 +28,17 @@ $(document).ready(function () {
         pointHoverBackgroundColor: "rgba(24, 120, 240, 1)",
         pointHoverBorderColor: "rgba(24, 120, 240, 1)",
         data: humidityData
+      },
+      {
+        fill: false,
+        label: 'Lufttryck',
+        yAxisID: 'Pressure',
+        borderColor: "rgba(0, 215, 0, 1)",
+        pointBoarderColor: "rgba(0, 215, 0, 1)",
+        backgroundColor: "rgba(0, 215, 0, 0.4)",
+        pointHoverBackgroundColor: "rgba(0, 215, 0, 1)",
+        pointHoverBorderColor: "rgba(0, 215, 0, 1)",
+        data: pressureData
       }
     ]
   }
@@ -34,7 +46,7 @@ $(document).ready(function () {
   var basicOption = {
     title: {
       display: true,
-      text: 'Temperatur & Luftfuktighet (K16)',
+      text: 'Miljö (K16)',
       fontSize: 36
     },
     scales: {
@@ -47,14 +59,22 @@ $(document).ready(function () {
         },
         position: 'left',
       }, {
-          id: 'Humidity',
-          type: 'linear',
-          scaleLabel: {
-            labelString: 'Luftfuktighet (%)',
-            display: true
-          },
-          position: 'right'
-        }]
+        id: 'Humidity',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'Luftfuktighet (%)',
+          display: true
+        },
+        position: 'right'
+      }, {
+        id: 'Pressure',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'Relativt lufttryck (mbar)',
+          display: true
+        },
+        position: 'right'
+      }]
     }
   }
 
@@ -75,11 +95,11 @@ $(document).ready(function () {
     console.log('receive message' + message.data);
     try {
       var obj = JSON.parse(message.data);
-      if(!obj.time || !obj.temperature2) {
+      if(!obj.time || !obj.esp2_temp1) {
         return;
       }
       timeData.push(obj.time);
-      temperatureData.push(obj.temperature2);
+      temperatureData.push(obj.esp2_temp1);
       // only keep no more than 50 points in the line chart
       const maxLen = 50;
       var len = timeData.length;
@@ -88,11 +108,18 @@ $(document).ready(function () {
         temperatureData.shift();
       }
 
-      if (obj.humidity1) {
-        humidityData.push(obj.humidity1);
+      if (obj.esp2_hum1) {
+        humidityData.push(obj.esp2_hum1);
       }
       if (humidityData.length > maxLen) {
         humidityData.shift();
+      }
+
+      if (obj.esp2_pres1) {
+        pressureData.push(obj.esp2_pres1);
+      }
+      if (pressureData.length > maxLen) {
+        pressureData.shift();
       }
 
       myLineChart.update();
