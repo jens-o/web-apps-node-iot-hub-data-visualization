@@ -53,6 +53,10 @@ $(document).ready(function () {
       yAxes: [{
         id: 'Temperature',
         type: 'linear',
+        ticks: {
+          min: -15.0,
+          max: 35.0
+        },
         scaleLabel: {
           labelString: 'Temperatur (C)',
           display: true
@@ -61,6 +65,10 @@ $(document).ready(function () {
       }, {
         id: 'Humidity',
         type: 'linear',
+        ticks: {
+          min: 0,
+          max: 100
+        },
         scaleLabel: {
           labelString: 'Luftfuktighet (%)',
           display: true
@@ -69,6 +77,10 @@ $(document).ready(function () {
       }, {
         id: 'Pressure',
         type: 'linear',
+        ticks: {
+          min: 950.0,
+          max: 1050.0
+        },
         scaleLabel: {
           labelString: 'Relativt lufttryck (mbar)',
           display: true
